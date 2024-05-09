@@ -13,8 +13,8 @@ import { addEvent } from '@/actions/eventActions';
 import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Username is required').max(50),
-  location: z.string().min(1, 'Role is required').max(50),
+  name: z.string().min(1, 'Name is required').max(50),
+  location: z.string().min(1, 'Location is required').max(50),
   date: z.string(),
 });
 
@@ -27,7 +27,7 @@ export default function EventForm() {
       location: '',
       date: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -41,9 +41,17 @@ export default function EventForm() {
     onClose();
   }
 
+  const action: () => void = form.handleSubmit(async (values: z.infer<typeof formSchema>) => {
+    await addEvent(values);
+    startTransition(() => {
+      router.refresh();
+    });
+    onClose();
+  });
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-lg flex flex-col justify-center">
+      <form action={action} className="w-full max-w-lg flex flex-col justify-center">
         <FormField
           control={form.control}
           name="name"
