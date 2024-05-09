@@ -1,6 +1,5 @@
 'use client';
 
-import { startTransition } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -10,7 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useAddEventModal } from '@/app/hooks/useAddEventModal';
 import { addEvent } from '@/actions/eventActions';
-import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required').max(50),
@@ -19,7 +17,6 @@ const formSchema = z.object({
 });
 
 export default function EventForm() {
-  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,19 +30,8 @@ export default function EventForm() {
   const { isSubmitting, isValid } = form.formState;
   const { onClose } = useAddEventModal();
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    await addEvent(values);
-    startTransition(() => {
-      router.refresh();
-    });
-    onClose();
-  }
-
   const action: () => void = form.handleSubmit(async (values: z.infer<typeof formSchema>) => {
     await addEvent(values);
-    startTransition(() => {
-      router.refresh();
-    });
     onClose();
   });
 
