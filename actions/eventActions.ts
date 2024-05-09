@@ -17,6 +17,17 @@ export const getEvents = async (): Promise<Event[]> => {
   }
 }
 
+export const getEvent = async (eventId: string): Promise<Event | null> => {
+  try {
+    const res = await fetch(`http://localhost:8000/events/${eventId}`);
+    const event = await res.json();
+    return event;
+  } catch (err) {
+    console.log('[GET_EVENT]', err);
+    return null;
+  }
+}
+
 export const addEvent = async (event: Omit<Event, 'id'>): Promise<Event | null> => {
   try {
     const res = await fetch(`http://localhost:8000/events`, {
