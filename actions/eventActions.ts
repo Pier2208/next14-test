@@ -9,6 +9,7 @@ export const getEvents = async (): Promise<Event[]> => {
       next: { tags: ['events'] }
     });
     const events: Event[] = await res.json()
+    console.log("events", events);
     return events;
   }
   catch (err) {
