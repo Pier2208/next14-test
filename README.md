@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Procédure secrets seatsio
 
-## Getting Started
+WORKSPACES
+Dans seatsio, on peut créer plusieurs workspaces. Chaque workspace possède un
+Secret workspace key (une clé privée) et une Public worskspace key.
 
-First, run the development server:
+Dans seatsio-react, c'est la secretKey (Secret workspace key) qui va être utilisée dans le composant <SeatsioDesigner />
+ou pour faire des requêtes authentifiées à l'api de seatsio (dans ce cas, il faut encoder cette secretKey
+en Base64 et utiliser une Basic Auth).
+La workspacekey (ou Public worskspace key) est aussi utilisée dans le composant <SeatsioSeatingChart /> pour retrouver à
+qui appartient cette chart.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+EVENTS
+Chaque évènement créé appartient toujours à un workspace.
+Chaque event possède un id (à récupérer dans le dashboard) qui est utilisé dans le composant <SeatsioSeatingChart />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+CHARTS
+Chaque chart créée possède une chart key.
+Un chart doit appartenir à un event.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

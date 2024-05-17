@@ -8,7 +8,7 @@ export default function Designer() {
       <h1 className="text-3xl">Designer</h1>
       <SeatsioDesigner
         canvasColorScheme="dark"
-        secretKey="8bfe4446-476f-4882-bd2d-fb47b02878c2"
+        secretKey={process.env.SEATSIO_SECRET_WORKSPACE_KEY!}
         chartKey="5482600d-202d-39dc-a5e8-69f609042580"
         region="na"
       />
